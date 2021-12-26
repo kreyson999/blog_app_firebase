@@ -2,10 +2,10 @@
 
 ## Technologies
 
-Framework: React
+Framework: React,
 Dependencies: Date-fns, react-router-dom
 
-# Website is fully reponsive;
+# Website is fully reponsive
 
 # Some images![ghimage1](https://user-images.githubusercontent.com/82313292/147421756-a5e8a6f2-9c0e-4a4a-9e82-2aab83b97290.png)
 
