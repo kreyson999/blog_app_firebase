@@ -1,7 +1,7 @@
 export const categories = [
   {
     id: 1,
-    title: 'Wszystkie',
+    title: 'All',
     image: '',
   },
   {
@@ -26,7 +26,7 @@ export const categories = [
   },
   {
     id: 6,
-    title: 'Rozrywka',
+    title: 'Entertainment',
     image: '',
   },
   {

@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, StyledAside, StyledMain } from "../globalStyles";
-import { articles, categories } from "../testData";
+import { articles } from "../testData";
 import { formatDistanceToNow } from 'date-fns'
 import StyledArticleItem from '../components/ArticleItem'
-import CategoryItem from "../components/CategoryItem";
 
 function ArticlePage() {
   const { articleTitle } = useParams()
@@ -37,15 +36,15 @@ function ArticlePage() {
     <Container directionColumn>
       <StyledMain flexColumnMain>
         <div className="top-main">
-          <p style={{textAlign: 'left'}}>Autor: {article.author}</p>
-          <p style={{textAlign: 'right'}}>Opublikowano: {article ? formatDistanceToNow(Date.parse(article.date)) : 'x'} temu</p>
+          <p style={{textAlign: 'left'}}>Author: {article.author}</p>
+          <p style={{textAlign: 'right'}}>Published: {article ? formatDistanceToNow(Date.parse(article.date)) : 'x'} ago</p>
         </div>
         <div className="bottom-main">
           <h1 style={{color: 'white', fontFamily: 'var(--font-bold)'}}>{article.title}</h1>
           <img src={article.bodyImg} alt={article.title} />
-          <h2 style={{fontFamily: 'var(--font-bold)'}}>Nagłowek posta 1</h2>
+          <h2 style={{fontFamily: 'var(--font-bold)'}}>Article Header 1</h2>
           <p style={{color: 'white'}}>{article.body}</p>
-          <h2 style={{fontFamily: 'var(--font-bold)'}}>Nagłowek posta 2</h2>
+          <h2 style={{fontFamily: 'var(--font-bold)'}}>Article Header 2</h2>
           <p style={{color: 'white'}}>{article.body}</p>
         </div>
       </StyledMain>

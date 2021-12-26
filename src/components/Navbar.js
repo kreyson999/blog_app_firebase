@@ -72,7 +72,7 @@ const Navbar = () => {
       <div className="nav-right">
         {isSearching ? 
         <StyledForm full>
-          <StyledSearchInput full placeholder="Szukaj..." />
+          <StyledSearchInput full placeholder="Search..." />
           <IconButton white>
             <span className="material-icons-outlined">
               search
@@ -105,7 +105,7 @@ const Navbar = () => {
       <Logo to="/">KJMM.PL</Logo>
       <div className="nav-right">
         <StyledForm >
-          <StyledSearchInput placeholder="Szukaj..." />
+          <StyledSearchInput placeholder="Search..." />
           <IconButton white>
             <span className="material-icons-outlined">
               search

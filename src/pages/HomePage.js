@@ -6,7 +6,7 @@ import StyledArticleItem from "../components/ArticleItem";
 import { useState, useEffect } from "react";
 
 function HomePage() {
-  const [choosedCategory, setChoosedCategory] = useState('wszystkie');
+  const [choosedCategory, setChoosedCategory] = useState('all');
   const [articlesView, setArticlesView] = useState(true);
   const [isSidebarClosed, setIsSidebarClosed] = useState(false);
   const [articlesList, setArticlesList] = useState([])
@@ -14,7 +14,7 @@ function HomePage() {
   useEffect(() => {
     const loadArticles = (category) => {
       return articles.map(article => {
-        if ((article.category.toLowerCase().split(' ').join('-') === category) || (category === 'wszystkie')) {
+        if ((article.category.toLowerCase().split(' ').join('-') === category) || (category === 'all')) {
           return (<StyledArticleItem key={article.id} article={article}/>)
         }
         return false;
@@ -37,7 +37,7 @@ function HomePage() {
     <Container directionColumn>
       <StyledAside scrollable className={isSidebarClosed ? 'closed' : null}>
         <div className="top-main">
-          <h4>Kategorie</h4>
+          <h4>Categories</h4>
           <IconButton circle white onClick={handleClosingSidebar}>
             <span className="material-icons-outlined">
               {isSidebarClosed ? 'arrow_forward_ios' : 'arrow_back_ios'}
@@ -63,7 +63,7 @@ function HomePage() {
       </StyledAside>
       <StyledMain rowView={articlesView ? true : false}>
         <div className="top-main">
-          <h4>Artykuły: #{choosedCategory}</h4>
+          <h4>Articles: #{choosedCategory}</h4>
           <div className="right-side">
             <IconButton>
               <span className="material-icons-outlined">
@@ -78,7 +78,7 @@ function HomePage() {
           </div>
         </div>
         <div className="bottom-main">
-          {articlesList.length > 0 ? articlesList : (<h1>Brak artykułów w tej kategorii!</h1>)}
+          {articlesList.length > 0 ? articlesList : (<h1>We have not found any articles is this categoy!</h1>)}
         </div>
       </StyledMain>
     </Container>
