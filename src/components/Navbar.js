@@ -1,97 +1,133 @@
-import React, { useState, useEffect } from 'react';
+import styled from "styled-components"
+import { Container } from "../globalStyles"
+import IconButton from "./IconButton"
+import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react';
 
-function Navbar() {
-  const [searchInputValue, setSearchInputValue] = useState(''); 
+
+const StyledNavbar = styled.nav`
+  div.container {
+    padding: 0.5rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+  div.container .nav-right {
+    justify-content: flex-end;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const Logo = styled(Link)`
+  text-decoration: none;
+  font-size: 2rem;
+  font-family: var(--font-bold);
+  color: var(--primary-color);
+`;
+
+const StyledSearchInput = styled.input`
+  background-color: transparent;
+  color: white;
+  border: none;
+  width: ${(props) => props.full ? '100%' : '100%'};
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  &:focus {
+    outline: none;
+  }
+`
+const StyledForm = styled.form`
+  border-radius: var(--default-border-radius);
+  padding: 0.25rem 0.5rem;
+  display: flex;
+  width: ${(props) => props.full ? '100%' : '30%'};
+  background-color: var(--dark-blue-color);
+  :focus-within {
+    outline: 2px solid var(--primary-color);
+  }
+`
+
+const Navbar = () => {
   const [isSearching, setIsSearching] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  // const [isDarkMode, setIsDarkMode] = useState(false);
-  
-  const handleWindowResize = () => setWindowWidth(window.innerWidth)
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+  const handleSearchClick = () => {
+    setIsSearching(!isSearching)
+  };
+  const handleResizeNav = () => {
+    setWindowWidth(window.innerWidth);
+  }
 
   useEffect(() => {
-    window.addEventListener('resize', handleWindowResize)
+    window.addEventListener('resize', handleResizeNav);
     return () => {
-      window.removeEventListener('resize', handleWindowResize)
+      window.removeEventListener('resize', handleResizeNav)
     }
   })
 
-
   const mobileNav = (
-    <nav>
-      <div className="container">
+    <>
+    {isSearching ? null : <Logo to="/">KJMM.PL</Logo>} 
+      <div className="nav-right">
         {isSearching ? 
-        <>
-          <form>
-            <input 
-              placeholder="Szukaj..."
-              type="text" 
-              value={searchInputValue} 
-              onChange={(e) => setSearchInputValue(e.target.value)} 
-            />
-            <button>
-              <span className="material-icons-outlined">
-                search
-              </span>
-            </button>
-          </form>
-          <button onClick={() => setIsSearching(!isSearching)}>
+        <StyledForm full>
+          <StyledSearchInput full placeholder="Szukaj..." />
+          <IconButton white>
             <span className="material-icons-outlined">
-              close
-            </span>
-          </button>
-        </> :
-        <>
-          <div className="logo">
-            <h1>KJMM.PL</h1>
-          </div>
-          <div className="right-side">
-            <button onClick={() => setIsSearching(!isSearching)}>
-              <span className="material-icons-outlined">
               search
-              </span>
-            </button>
-            <button>
-              <span className="material-icons-outlined">
-              dark_mode
-              </span>
-            </button>
-          </div>
-        </>
-        }
-      </div>
-    </nav>
-  )
-  const desktopNav = (
-    <nav>
-      <div className="container">
-        <div className="logo">
-          <h1>KJMM.PL</h1>
-        </div>
-        <div className="right-side">
-          <form action="">
-            <input 
-              placeholder="Szukaj..."
-              type="text" 
-              value={searchInputValue} 
-              onChange={(e) => setSearchInputValue(e.target.value)} 
-            />
-            <button>
-              <span className="material-icons-outlined">
-                search
-              </span>
-            </button>
-          </form>
-          <button>
-            <span className="material-icons-outlined">
-            dark_mode
             </span>
-          </button>
-        </div>
+          </IconButton>
+        </StyledForm>
+        : <IconButton onClick={handleSearchClick}>
+            <span className="material-icons-outlined">
+              search
+            </span>
+          </IconButton>
+        }
+        {isSearching ? 
+        <IconButton onClick={handleSearchClick}>
+          <span className="material-icons-outlined">
+            close
+          </span>
+        </IconButton> 
+        : <IconButton>
+          <span className="material-icons-outlined">
+            dark_mode
+          </span>
+        </IconButton>}
       </div>
-    </nav>
+    </>
   )
 
-  return (windowWidth < 768 ? mobileNav : desktopNav);
+  const desktopNav = (
+    <>
+      <Logo to="/">KJMM.PL</Logo>
+      <div className="nav-right">
+        <StyledForm >
+          <StyledSearchInput placeholder="Szukaj..." />
+          <IconButton white>
+            <span className="material-icons-outlined">
+              search
+            </span>
+          </IconButton>
+        </StyledForm>
+        <IconButton>
+          <span className="material-icons-outlined">
+            dark_mode
+          </span>
+        </IconButton>
+      </div>
+    </>
+  )
+
+  return (
+    <StyledNavbar>
+      <Container className="container">
+        {windowWidth < 768 ? mobileNav : desktopNav}
+      </Container>
+    </StyledNavbar>
+  )
 }
 
-export default Navbar;
+export default Navbar
