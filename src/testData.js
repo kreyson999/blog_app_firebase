@@ -31,7 +31,7 @@ export const categories = [
   },
   {
     id: 7,
-    title: 'Pieniądze',
+    title: 'Money',
     image: 'https://d-art.ppstatic.pl/kadry/k/r/8/2f/0c/5109399343653_o_full.jpg',
   },
 ]
