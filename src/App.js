@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <GlobalStyle/>
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router >
         <Routes>
           <Route path="/" element={<PageLayout/>}>
             <Route index element={<HomePage/>}/>

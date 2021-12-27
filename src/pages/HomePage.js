@@ -1,33 +1,15 @@
-import CategoryItem from "../components/CategoryItem";
 import { Container, StyledAside, StyledMain } from "../globalStyles";
-import { categories, articles } from '../testData';
 import IconButton from "../components/IconButton";
-import StyledArticleItem from "../components/ArticleItem";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useFetchData from "../helpers/useFetchData";
 
 function HomePage() {
-  const [choosedCategory, setChoosedCategory] = useState('all');
   const [articlesView, setArticlesView] = useState(true);
   const [isSidebarClosed, setIsSidebarClosed] = useState(false);
-  const [articlesList, setArticlesList] = useState([])
+  const [ categories, articles, category ] = useFetchData();
 
-  useEffect(() => {
-    const loadArticles = (category) => {
-      return articles.map(article => {
-        if ((article.category.toLowerCase().split(' ').join('-') === category) || (category === 'all')) {
-          return (<StyledArticleItem key={article.id} article={article}/>)
-        }
-        return false;
-      })
-    }
-    const loadedArticles = loadArticles(choosedCategory.toLowerCase())
-    setArticlesList(loadedArticles);
-  }, [choosedCategory])
   const handleChangingView = () => {
     setArticlesView(!articlesView);
-  }
-  const handleChooseCategory = (title) => {
-    setChoosedCategory(title);
   }
   const handleClosingSidebar = () => {
     setIsSidebarClosed(!isSidebarClosed);
@@ -45,25 +27,12 @@ function HomePage() {
           </IconButton>
         </div>
         <div className="bottom-main">
-          {categories.map(category => (
-            <CategoryItem 
-              key={category.id} 
-              to={""} 
-              className={category.title.toLowerCase().split(' ').join('-') === choosedCategory.toLowerCase() ? 'active' : null}
-              onClick={() => handleChooseCategory(category.title.toLowerCase().split(' ').join('-'))}
-            >
-              <div className="icon-box">
-                {category.image !== '' ? <img src={category.image} alt={category.title} /> : category.title.charAt(0)}
-              </div>
-              <p>{category.title}</p>
-            </CategoryItem>
-            )
-          )}
+          {categories}
         </div>
       </StyledAside>
       <StyledMain rowView={articlesView ? true : false}>
         <div className="top-main">
-          <h4>Articles: #{choosedCategory}</h4>
+          <h4>Articles: #{category}</h4>
           <div className="right-side">
             <IconButton>
               <span className="material-icons-outlined">
@@ -78,7 +47,7 @@ function HomePage() {
           </div>
         </div>
         <div className="bottom-main">
-          {articlesList.length > 0 ? articlesList : (<h1>We have not found any articles is this categoy!</h1>)}
+          {articles}
         </div>
       </StyledMain>
     </Container>
